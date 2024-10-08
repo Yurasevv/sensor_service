@@ -45,6 +45,8 @@ Swagger доступен по адресу http://localhost:8080/swagger-ui/inde
 
 ### Сборка Maven
 
+Для каждого модуля нужно получить target
+
 ```mvn clean install```
 
 ### Сборка Docker
