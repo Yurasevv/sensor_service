@@ -12,4 +12,5 @@ import java.util.List;
 public interface MeasurementRepository extends JpaRepository<Measurement, Integer> {
     List<Measurement> findTop20BySensorOrderByTimestampDesc(Sensor sensor);
     List<Measurement> findByTimestampAfter(LocalDateTime timestamp);
+    List<Measurement> findBySensorNameAndTimestampAfter(String name, LocalDateTime timestamp);
 }

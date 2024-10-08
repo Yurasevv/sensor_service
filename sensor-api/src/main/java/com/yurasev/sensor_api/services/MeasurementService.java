@@ -57,4 +57,9 @@ public class MeasurementService {
         LocalDateTime oneMinuteAgo = LocalDateTime.now().minusMinutes(1);
         return measurementRepository.findByTimestampAfter(oneMinuteAgo);
     }
+
+    public List<Measurement> getRecentMeasurementsByName(String name) {
+        LocalDateTime oneMinuteAgo = LocalDateTime.now().minusMinutes(1);
+        return measurementRepository.findBySensorNameAndTimestampAfter(name, oneMinuteAgo);
+    }
 }
