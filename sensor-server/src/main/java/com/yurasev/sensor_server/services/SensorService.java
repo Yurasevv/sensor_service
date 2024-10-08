@@ -7,7 +7,6 @@ import com.yurasev.sensor_server.exceptions.SensorException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -41,13 +40,14 @@ public class SensorService {
     }
 
     public void sendMeasurement(String serverUrl, String sensorName) {
-        registerSensor(serverUrl, sensorName);
+
         if (sensorKey == null) {
+            registerSensor(serverUrl, sensorName);
             throw new SensorException("Sensor is not registered");
         }
 
         MeasurementRequest measurementRequest = new MeasurementRequest();
-        measurementRequest.setValue(generateTemperature());
+        measurementRequest.setTemperature(generateTemperature());
         measurementRequest.setRaining(random.nextBoolean());
 
         restTemplate.postForObject(

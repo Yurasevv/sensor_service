@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class MeasurementRequest {
-    private double value;
+    private double temperature;
     private boolean raining;
 }
