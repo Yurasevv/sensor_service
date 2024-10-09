@@ -55,6 +55,11 @@ Swagger доступен по адресу http://localhost:8080/swagger-ui/inde
 
 ```docker-compose up --build```
 
+## Время
+Потраченое время на написание приложения для API: 6ч
+Приложение сенсора: 4ч
+Тестирование: 3ч
+
 ## Стэк
 - Java
 - Spring Boot, Data, Web
