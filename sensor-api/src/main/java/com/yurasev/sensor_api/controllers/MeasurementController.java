@@ -8,6 +8,7 @@ import com.yurasev.sensor_api.exceptions.SensorException;
 import com.yurasev.sensor_api.models.Measurement;
 import com.yurasev.sensor_api.services.MeasurementService;
 import com.yurasev.sensor_api.util.DtoMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class MeasurementController {
         this.dtoMapper = dtoMapper;
     }
 
+    @Operation(summary = "Добавление измерений сенсора")
     @PostMapping
     public ResponseEntity<MeasurementDto> addMeasurement(
             @PathVariable String key,
@@ -46,6 +48,7 @@ public class MeasurementController {
 
     }
 
+    @Operation(summary = "Получения последних 20 измерений сенсора")
     @GetMapping
     public ResponseEntity<List<MeasurementDto>> getLastMeasurements(@PathVariable String key) {
 

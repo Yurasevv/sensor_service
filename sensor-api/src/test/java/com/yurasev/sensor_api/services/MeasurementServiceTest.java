@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
@@ -119,17 +120,27 @@ class MeasurementServiceTest {
 
     @Test
     void getRecentMeasurements_ShouldReturnRecentMeasurements() {
-        LocalDateTime oneMinuteAgo = LocalDateTime.now().minusMinutes(1);
+        LocalDateTime fixedNow = LocalDateTime.of(2024, 10, 8, 10, 0);
+        LocalDateTime oneMinuteAgo = fixedNow.minusMinutes(1);
+
+        Measurement measurement = new Measurement();
+        measurement.setTemperature(25.0);
+        measurement.setRaining(false);
+        measurement.setTimestamp(fixedNow.minusSeconds(30));
 
         when(measurementRepository.findByTimestampAfter(oneMinuteAgo))
                 .thenReturn(List.of(measurement));
 
-        List<Measurement> recentMeasurements = measurementService.getRecentMeasurements();
+        try (MockedStatic<LocalDateTime> mockedLocalDateTime = mockStatic(LocalDateTime.class)) {
+            mockedLocalDateTime.when(LocalDateTime::now).thenReturn(fixedNow);
 
-        assertNotNull(recentMeasurements);
-        assertEquals(1, recentMeasurements.size());
-        assertEquals(25.0, recentMeasurements.get(0).getTemperature());
+            List<Measurement> recentMeasurements = measurementService.getRecentMeasurements();
 
-        verify(measurementRepository, times(1)).findByTimestampAfter(oneMinuteAgo);
+            assertNotNull(recentMeasurements);
+            assertEquals(1, recentMeasurements.size());
+            assertEquals(25.0, recentMeasurements.get(0).getTemperature());
+
+            verify(measurementRepository, times(1)).findByTimestampAfter(oneMinuteAgo);
+        }
     }
 }

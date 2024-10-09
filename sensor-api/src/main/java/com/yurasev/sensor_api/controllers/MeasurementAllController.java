@@ -5,6 +5,7 @@ import com.yurasev.sensor_api.exceptions.SensorErrorResponse;
 import com.yurasev.sensor_api.exceptions.SensorException;
 import com.yurasev.sensor_api.services.MeasurementService;
 import com.yurasev.sensor_api.util.DtoMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,6 +27,7 @@ public class MeasurementAllController {
         this.dtoMapper = dtoMapper;
     }
 
+    @Operation(summary = "Получить измерения за последнюю минуту со всех сенсоров")
     @GetMapping
     public ResponseEntity<List<MeasurementDto>> getRecentMeasurements() {
         List<MeasurementDto> measurements = measurementService.getRecentMeasurements().stream()

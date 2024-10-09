@@ -2,7 +2,6 @@ package com.yurasev.sensor_api.controller;
 
 import com.yurasev.sensor_api.controllers.MeasurementAllController;
 import com.yurasev.sensor_api.dto.MeasurementDto;
-import com.yurasev.sensor_api.exceptions.SensorException;
 import com.yurasev.sensor_api.models.Measurement;
 import com.yurasev.sensor_api.services.MeasurementService;
 import com.yurasev.sensor_api.util.DtoMapper;

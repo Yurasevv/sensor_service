@@ -7,6 +7,7 @@ import com.yurasev.sensor_api.models.Sensor;
 import com.yurasev.sensor_api.services.SensorService;
 import com.yurasev.sensor_api.util.DtoMapper;
 import com.yurasev.sensor_api.util.SensorValidator;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class SensorController {
         this.sensorValidator = sensorValidator;
     }
 
+    @Operation(summary = "Регистрация сенсора")
     @PostMapping("/registration")
     public ResponseEntity<Map<String, String>> registerSensor(
             @RequestBody @Valid SensorDto sensorDto,
@@ -47,6 +49,7 @@ public class SensorController {
         return ResponseEntity.ok(Map.of("key", sensor.getKey()));
     }
 
+    @Operation(summary = "Получение активных сенсоров. active = true")
     @GetMapping
     public ResponseEntity<List<SensorDto>> getActiveSensors() {
         List<SensorDto> sensors = sensorService.getActiveSensors().stream()
